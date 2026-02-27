@@ -40,17 +40,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG_LIFE, "")
+        Log.d(TAG_LIFE, "MainActivity onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG_LIFE, "MainActivity onDestroy")
     }
-}
-
-//Implemented in a separate file
-@Composable
-fun GameScreen(navController: NavController) {
-
 }
