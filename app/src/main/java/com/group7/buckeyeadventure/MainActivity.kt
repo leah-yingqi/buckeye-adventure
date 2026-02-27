@@ -4,19 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.group7.buckeyeadventure.ui.theme.BuckeyeAdventureTheme
 import android.util.Log
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import com.group7.buckeyeadventure.ui.AppRoot
 
 private const val TAG_LIFE = "Lifecycle"
 class MainActivity : ComponentActivity() {
@@ -57,33 +49,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun AppRoot() {
-    val navController = rememberNavController()
-
-    Scaffold { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = "login",
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("login") {LoginScreen(navController)}
-            composable("game") {GameScreen(navController)}
-        }
-    }
-}
-
-@Composable
-fun LoginScreen(navController: NavController) {
-    ScreenLifeLongger("LoginScreen")
-
-}
-
-@Composable
-fun ScreenLifeLongger(x0: String) {
-    TODO("Not yet implemented")
-}
-
+//Implemented in a separate file
 @Composable
 fun GameScreen(navController: NavController) {
 
