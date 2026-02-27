@@ -12,36 +12,79 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.group7.buckeyeadventure.ui.theme.BuckeyeAdventureTheme
+import android.util.Log
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 
+private const val TAG_LIFE = "Lifecycle"
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG_LIFE, "MainActivity onCreate")
         enableEdgeToEdge()
         setContent {
             BuckeyeAdventureTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppRoot()
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG_LIFE, "MainActivity onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG_LIFE, "MainActivity onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG_LIFE, "MainActivity onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG_LIFE, "")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG_LIFE, "MainActivity onDestroy")
+    }
+}
+
+@Composable
+fun AppRoot() {
+    val navController = rememberNavController()
+
+    Scaffold { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = "login",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable("login") {LoginScreen(navController)}
+            composable("game") {GameScreen(navController)}
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun LoginScreen(navController: NavController) {
+    ScreenLifeLongger("LoginScreen")
+
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    BuckeyeAdventureTheme {
-        Greeting("Android")
-    }
+fun ScreenLifeLongger(x0: String) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun GameScreen(navController: NavController) {
+
 }
