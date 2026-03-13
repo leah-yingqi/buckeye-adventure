@@ -11,35 +11,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.group7.buckeyeadventure.data.model.GameTask
+import com.group7.buckeyeadventure.viewmodel.TaskViewModel
 
 /**
  * Simple task model for UI.
  */
-data class GameTask(
-    val id: String,
-    val title: String,
-    val description: String,
-    val rewardCoins: Int,
-    val progress: Int,   // 0..100
-    val isCompleted: Boolean
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameTaskScreen(
+    viewModel: TaskViewModel = viewModel(),
     onBack: () -> Unit,
-    onTaskCompleted: (GameTask) -> Unit = {}
 ) {
-    // Demo data (replace with your real data source later)
-    var tasks by remember {
-        mutableStateOf(
-            listOf(
-                GameTask("t1", "Explore the Oval", "Walk around the Oval and find 3 landmarks.", 50, 20, false),
-                GameTask("t2", "Library Run", "Visit Thompson Library and collect a clue.", 80, 60, false),
-                GameTask("t3", "Boss Prep", "Gather items and be ready for the next challenge.", 120, 100, true),
-            )
-        )
-    }
+    val tasks by viewModel.tasks.collectAsState()
 
     var selectedId by remember { mutableStateOf(tasks.firstOrNull()?.id) }
     val selected = tasks.firstOrNull { it.id == selectedId }
@@ -87,12 +73,9 @@ fun GameTaskScreen(
                 } else {
                     TaskDetails(
                         task = selected,
-                        onComplete = { task ->
-                            if (!task.isCompleted) {
-                                val updated = task.copy(progress = 100, isCompleted = true)
-                                tasks = tasks.map { if (it.id == task.id) updated else it }
-                                onTaskCompleted(updated)
-                            }
+                        onComplete = {
+                            task ->
+                            viewModel.markAsCompleted(task.id)
                         }
                     )
                 }
