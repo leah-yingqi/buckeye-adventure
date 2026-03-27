@@ -8,3 +8,4 @@ data class GameTask(
     val progress: Int = 0,
     val isCompleted: Boolean = false
 )
+

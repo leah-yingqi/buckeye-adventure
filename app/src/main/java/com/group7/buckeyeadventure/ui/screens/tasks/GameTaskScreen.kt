@@ -38,6 +38,26 @@ fun GameTaskScreen(
                     TextButton(onClick = onBack) { Text("Back") }
                 }
             )
+            Button(onClick = {
+                viewModel.addNewTask("Visit Denney Hall")
+            }) {
+                Text("Add New Task")
+            }
+            if (selected == null) {
+                Box() {
+                    Text("Select a task to delete the task")
+                }
+            } else {
+                Button(
+                    onClick = {
+                        selected.let {
+                            viewModel.deleteTask(it.id)
+                        }
+                    }
+                ) {
+                    Text("Delete Selected Task")
+                }
+            }
         }
     ) { padding ->
         Row(

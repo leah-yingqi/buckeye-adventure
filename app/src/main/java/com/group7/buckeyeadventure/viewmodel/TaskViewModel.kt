@@ -27,4 +27,8 @@ class TaskViewModel : ViewModel(){
             repository.updateTaskStatus(taskId, true)
         }
     }
+
+    fun deleteTask(taskId: String) {
+        repository.deleteTask(taskId)
+    }
 }
