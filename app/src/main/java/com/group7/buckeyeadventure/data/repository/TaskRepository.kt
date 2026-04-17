@@ -14,11 +14,6 @@ class TaskRepository {
     private val db = Firebase.firestore
     private val taskCollection = db.collection("tasks")
 
-    // Create
-    fun addTask(task: GameTask) {
-        taskCollection.add(task)
-    }
-
     // Read
     fun getTasks() = callbackFlow<List<GameTask>> {
         val snapshotListener = taskCollection.addSnapshotListener { snapshot, _ ->
@@ -29,11 +24,6 @@ class TaskRepository {
         }
         awaitClose { snapshotListener.remove() }
     }.distinctUntilChanged()
-
-    // Delete
-    fun deleteTask(taskId: String) {
-        taskCollection.document(taskId).delete()
-    }
 
     fun updateTaskStatus(taskId: String, isCompleted: Boolean) {
         taskCollection.document(taskId)
