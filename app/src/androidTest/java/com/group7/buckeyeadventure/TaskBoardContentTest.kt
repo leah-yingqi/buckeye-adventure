@@ -24,7 +24,7 @@ class TaskBoardContentTest {
         composeRule.setContent {
             BuckeyeAdventureTheme {
                 TaskBoardContent(
-                    tasks = sampleTasks(12),
+                    tasks = sampleTasks(),
                     onBack = {},
                     onUpdateTaskCompletion = { taskId, isCompleted ->
                         completionUpdates += taskId to isCompleted
@@ -77,8 +77,8 @@ class TaskBoardContentTest {
         assertEquals(listOf("task-1" to false), completionUpdates)
     }
 
-    private fun sampleTasks(count: Int): List<GameTask> =
-        (1..count).map { index ->
+    private fun sampleTasks(): List<GameTask> =
+        (1..12).map { index ->
             GameTask(
                 id = "task-$index",
                 title = "Task $index",

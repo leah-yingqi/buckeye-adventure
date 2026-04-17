@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.group7.buckeyeadventure.data.model.GameTask
@@ -42,6 +43,7 @@ fun TaskBoardContent(
     val page = remember(tasks, pageIndex) { paginateTasks(tasks, pageIndex) }
     val taskById = remember(tasks) { tasks.associateBy { it.id } }
     val selected = selectedId?.let { taskById[it] }
+    val isCompactWidth = LocalConfiguration.current.screenWidthDp.dp < 700.dp
     val pageLabel = remember(page.pageIndex, page.totalPages) {
         "${strings.page} ${page.pageIndex + 1} ${strings.of} ${page.totalPages}"
     }
@@ -63,13 +65,13 @@ fun TaskBoardContent(
             )
         }
     ) { padding ->
-        BoxWithConstraints(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
         ) {
-            if (maxWidth < 700.dp) {
+            if (isCompactWidth) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
