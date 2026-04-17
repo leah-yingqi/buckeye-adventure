@@ -20,11 +20,11 @@ class TaskViewModel : ViewModel(){
         repository.addTask(GameTask(title = title))
     }
 
-    fun markAsCompleted(taskId: String) {
+    fun updateTaskCompletion(taskId: String, isCompleted: Boolean) {
         // Call Repository to update Firebase
         // Firebase will trigger addSnapshotListener, update UI list automatically
         viewModelScope.launch {
-            repository.updateTaskStatus(taskId, true)
+            repository.updateTaskStatus(taskId, isCompleted)
         }
     }
 
