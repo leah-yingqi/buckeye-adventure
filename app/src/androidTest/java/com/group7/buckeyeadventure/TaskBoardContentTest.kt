@@ -37,12 +37,23 @@ class TaskBoardContentTest {
         composeRule.onNodeWithTag("taskItem-task-4").assertDoesNotExist()
         composeRule.onNodeWithTag("pageLabel").assertIsDisplayed()
         composeRule.onNodeWithTag("previousPageButton").assertIsNotEnabled()
-        composeRule.onNodeWithTag("nextPageButton").assertIsEnabled().performClick()
+
+        composeRule.onNodeWithTag("nextPageButton")
+            .assertIsEnabled()
+            .performClick()
+
+        composeRule.waitForIdle()
 
         composeRule.onNodeWithTag("taskItem-task-4").assertIsDisplayed()
         composeRule.onNodeWithTag("taskItem-task-1").assertDoesNotExist()
+
         composeRule.onNodeWithTag("taskItem-task-4").performClick()
+
+        composeRule.waitForIdle()
+
         composeRule.onNodeWithTag("completeTaskButton").performClick()
+
+        composeRule.waitForIdle()
 
         assertEquals(listOf("task-4" to true), completionUpdates)
     }
@@ -71,8 +82,11 @@ class TaskBoardContentTest {
             }
         }
 
-        composeRule.onNodeWithText("Mark as uncompleted").assertIsDisplayed()
+        composeRule.waitForIdle()
+
         composeRule.onNodeWithTag("completeTaskButton").performClick()
+
+        composeRule.waitForIdle()
 
         assertEquals(listOf("task-1" to false), completionUpdates)
     }

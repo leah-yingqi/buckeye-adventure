@@ -13,7 +13,7 @@ import com.group7.buckeyeadventure.domain.paginateTasks
 import com.group7.buckeyeadventure.ui.localization.LocalAppStrings
 import com.group7.buckeyeadventure.viewmodel.TaskViewModel
 
-private val CompactTaskListHeight = 420.dp
+private val CompactTaskListHeight = 300.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

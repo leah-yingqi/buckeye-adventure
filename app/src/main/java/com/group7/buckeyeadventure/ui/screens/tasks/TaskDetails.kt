@@ -78,7 +78,7 @@ private fun TaskDetails(
         Text(strings.reward, style = MaterialTheme.typography.titleSmall)
         Text("${task.rewardCoins} ${strings.coins}", style = MaterialTheme.typography.bodyMedium)
 
-        Spacer(Modifier.weight(1f))
+        //Spacer(Modifier.weight(1f))
 
         Button(
             onClick = { onCompletionChange(task, !task.isCompleted) },
